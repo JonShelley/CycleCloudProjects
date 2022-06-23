@@ -22,7 +22,8 @@ function run_reframe {
 
     # Run reframe tests
     . /etc/profile.d/modules.sh
-    ./bin/reframe -C azure_nhc/config/azure_ex.py -c azure_nhc/network/ib/ib_count.py -s /mnt/resource/reframe/stage -o /mnt/resource/reframe/output -r --performance-report
+     mkdir -p /mnt/resource/reframe/reports
+    ./bin/reframe -C azure_nhc/config/azure_ex.py -c azure_nhc/network/ib/ib_count.py --report-file /mnt/resource/reframe/reports/cc-startup.json  -s /mnt/resource/reframe/stage -o /mnt/resource/reframe/output -r --performance-report
 
 }
 
