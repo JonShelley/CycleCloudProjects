@@ -1,7 +1,17 @@
 #!/bin/bash
 
-export PATH=/opt/rh/rh-python38/root/usr/bin:$PATH
-  
+# Determine the OS version
+version=`/bin/bash ${CYCLECLOUD_SPEC_PATH}/files/common.sh`
+
+if [ "$version" == "centos-7" ]
+then
+    export PATH=/opt/rh/rh-python38/root/usr/bin:$PATH
+elif [ "$version" == "centos-8" ]
+then
+    #Nothing yet
+    a="5"
+fi
+
 set -x
 
 function run_reframe {
@@ -9,7 +19,7 @@ function run_reframe {
     # Setup environment
     cd /usr/local/reframe
     . share/completions/reframe.bash
-    
+
     # Run reframe tests
     . /etc/profile.d/modules.sh
     ./bin/reframe -C azure_nhc/config/azure_ex.py -c azure_nhc/network/ib/ib_count.py -s /mnt/resource/reframe/stage -o /mnt/resource/reframe/output -r --performance-report
