@@ -10,7 +10,8 @@ cp  ${CYCLECLOUD_SPEC_PATH}/files/common.sh ${PROLOGUE_DIR}/.
 cp  ${CYCLECLOUD_SPEC_PATH}/files/check_reframe_report.py ${PROLOGUE_DIR}/.
 
 # Configure slurm prologue
-echo "Prolog=${PROLOGUE_DIR}/run_reframe_prologue.sh" >> /sched/slurm.config
+echo "Prolog=${PROLOGUE_DIR}/run_reframe_prologue.sh" >> /sched/slurm.conf
+echo "PrologFlags=DeferBatch" >> /sched/slurm.conf
 
 # Do we need to restart slurmctld?
 #systemctl restart slurmctld.service
