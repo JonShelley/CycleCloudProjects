@@ -18,6 +18,11 @@ fi
 yum install -y git jq
 
 # Install reframe
-cd /shared/azure_nhc/reframe
+NHC_PATH="/shared/azure_nhc"
+mkdir -p $NHC_PATH
+cd $NHC_PATH
+rm -rf reframe
+git clone https://github.com/JonShelley/reframe.git
+cd reframe
 
 ./bootstrap.sh

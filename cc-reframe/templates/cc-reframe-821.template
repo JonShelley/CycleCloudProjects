@@ -89,6 +89,7 @@ Autoscale = $Autoscale
 
 
         [[[cluster-init cyclecloud/slurm:scheduler]]]
+        [[[cluster-init cc-reframe:scheduler:0.1.0]]]
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $UsePublicNetwork
