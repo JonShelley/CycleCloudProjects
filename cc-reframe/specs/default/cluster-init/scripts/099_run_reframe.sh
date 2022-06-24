@@ -22,8 +22,8 @@ function run_reframe {
 
     # Run reframe tests
     . /etc/profile.d/modules.sh
-     mkdir -p /mnt/resource/reframe/reports
-    ./bin/reframe -C azure_nhc/config/azure_ex.py -c azure_nhc/network/ib/ib_count.py --report-file /mnt/resource/reframe/reports/cc-startup.json  -s /mnt/resource/reframe/stage -o /mnt/resource/reframe/output -r --performance-report
+    mkdir -p /mnt/resource/reframe/reports
+    ./bin/reframe -C azure_nhc/config/azure_ex.py --report-file /mnt/resource/reframe/reports/cc-startup.json -c azure_nhc/pcie/device_count.py -s /mnt/resource/reframe/stage -o /mnt/resource/reframe/output -r --performance-report
 
 }
 
@@ -33,9 +33,13 @@ function check_reframe {
     vmId=$(curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2019-06-04" | jq '.compute.vmId')
 
     # Get Reframe error
+    status=$(python3 ${CYCLECLOUD_SPEC_PATH}/files/check_reframe_report.py)
 
     # Add the VM ID and error to the jetpack log
-    jetpack log "$HOSTNAME:$vmId:SomeError"
+    jetpack log "$HOSTNAME:$vmId:$status"
+
+    # Keep the VM up
+    jetpack keepalive forever
 
     # If possible, trigger IcM ticket and get it out of rotation
 }
