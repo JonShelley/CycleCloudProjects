@@ -38,7 +38,7 @@ function check_reframe {
     status=$(python3 ${REFRAME_DIR}/azure_nhc/utils/check_reframe_report.py)
 
     # Add the VM ID and error to the jetpack log
-    jetpack log "$HOSTNAME:$vmId:$status"
+    /opt/cycle/jetpack/bin/jetpack log "$HOSTNAME:$vmId:$status"
 
     # Place the node in a drained state
     scontrol update nodename=$HOSTNAME state=DRAIN Reason="$status"
