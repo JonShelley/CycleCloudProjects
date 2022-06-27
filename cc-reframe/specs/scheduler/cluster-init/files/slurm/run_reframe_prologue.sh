@@ -1,10 +1,9 @@
 #!/bin/bash
 
-REFRAME_DIR="/shared/azure_nhc/reframe"
-SCRATCH_DIR="shared/azure_nhc/scratch"
-
 # Determine the OS version
-version=`/bin/bash /usr/local/reframe/azure_nhc/slurm/common.sh`
+REFRAME_DIR="/shared/azure_nhc/reframe"
+SCRATCH_DIR="/shared/azure_nhc/scratch"
+version=`/bin/bash ${REFRAME_DIR}/azure_nhc/utils/common.sh`
 
 if [ "$version" == "centos-7" ]
 then
@@ -20,13 +19,13 @@ set -x
 function run_reframe {
     echo "Hello run_reframe()"
     # Setup environment
-    cd /usr/local/reframe
+    cd ${REFRAME_DIR}
     . share/completions/reframe.bash
 
     # Run reframe tests
     . /etc/profile.d/modules.sh
-    mkdir -p /mnt/resource/reframe/reports
-    ./bin/reframe -C azure_nhc/config/azure_ex.py --report-file ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-slurm-prologue.json -c azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage -o ${SCRATCH}/output -R -r --performance-report
+    mkdir -p ${REFRAME_DIR}/reports
+    ./bin/reframe -C azure_nhc/config/azure_ex.py --report-file ${SCRATCH}/reports/cc-slurm-prologue.json -c ${REFRAME_DIR}/azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage -o $SCRATCH_DIR}/output -R -r --performance-report
 
 }
 
@@ -36,13 +35,13 @@ function check_reframe {
     vmId=$(curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2019-06-04" | jq '.compute.vmId')
 
     # Get Reframe error
-    status=$(python3 /usr/local/reframe/azure_nhc/slurm/check_reframe_report.py -f ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-slurm-prologue.json)
+    status=$(python3 ${REFRAME_DIR}/azure_nhc/utils/check_reframe_report.py)
 
     # Add the VM ID and error to the jetpack log
     jetpack log "$HOSTNAME:$vmId:$status"
 
     # Place the node in a drained state
-    scontrol update nodename=${HOSTNAME} state=DRAIN Reason="$status"
+    scontrol update nodename=$HOSTNAME state=DRAIN Reason="$status"
 
     # If possible, trigger IcM ticket and get it out of rotation
 }
