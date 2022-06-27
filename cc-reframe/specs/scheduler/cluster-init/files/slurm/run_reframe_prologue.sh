@@ -25,7 +25,7 @@ function run_reframe {
     # Run reframe tests
     . /etc/profile.d/modules.sh
     mkdir -p ${REFRAME_DIR}/reports
-    ./bin/reframe -C azure_nhc/config/azure_ex.py --report-file ${SCRATCH}/reports/cc-slurm-prologue.json -c ${REFRAME_DIR}/azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage -o $SCRATCH_DIR}/output -R -r --performance-report
+    ./bin/reframe -C azure_nhc/config/azure_ex.py --report-file ${SCRATCH}/reports/cc-slurm-prologue.json -c ${REFRAME_DIR}/azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage -o ${SCRATCH_DIR}/output -R -r --performance-report
 
 }
 
