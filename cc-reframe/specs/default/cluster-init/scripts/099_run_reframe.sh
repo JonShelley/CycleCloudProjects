@@ -28,7 +28,7 @@ function run_reframe {
     # Run reframe tests
     . /etc/profile.d/modules.sh
     mkdir -p ${SCRATCH_DIR}/reports
-    ./bin/reframe -C azure_nhc/config/azure_ex.py --force-local --report-file ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-startup.json -c azure_nhc/run_level_2 -R -s ${SCRATCH_DIR}/stage -o ${SCRATCH_DIR}/output -r --performance-report
+    ./bin/reframe -C azure_nhc/config/azure_ex.py --force-local --report-file ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-startup.json -c azure_nhc/run_level_2 -R -s ${SCRATCH_DIR}/stage/${HOSTNAME} -o ${SCRATCH_DIR}/output/${HOSTNAME} -r --performance-report
 
 }
 
