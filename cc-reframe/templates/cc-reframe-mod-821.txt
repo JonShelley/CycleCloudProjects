@@ -89,6 +89,7 @@ Autoscale = $Autoscale
 
 
         [[[cluster-init cyclecloud/slurm:scheduler]]]
+        [[[cluster-init cc-reframe:scheduler:0.1.0]]]
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $UsePublicNetwork
@@ -197,6 +198,7 @@ Autoscale = $Autoscale
 
         [[[configuration]]]
         slurm.partition = hbv2
+        slurm.dampen_memory = 7
         slurm.hpc = true
 
 
@@ -400,61 +402,61 @@ Order = 10
 
     
         [[[parameter hb_machine_type]]]
-        Label = HPC VM Type
+        Label = hb VM Type
         Description = The VM type for hb execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_HB60rs
     
         [[[parameter hbv2_machine_type]]]
-        Label = HPC VM Type
+        Label = hbv2 VM Type
         Description = The VM type for hbv2 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_HB120rs_v2
     
         [[[parameter hbv3_machine_type]]]
-        Label = HPC VM Type
+        Label = hbv3 VM Type
         Description = The VM type for hbv3 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_HB120rs_v3
     
         [[[parameter hc_machine_type]]]
-        Label = HPC VM Type
+        Label = hc VM Type
         Description = The VM type for hc execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_HC44rs
     
         [[[parameter ncv3_machine_type]]]
-        Label = HPC VM Type
+        Label = ncv3 VM Type
         Description = The VM type for ncv3 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_NC24rs_v3
     
         [[[parameter nct4v3_machine_type]]]
-        Label = HPC VM Type
+        Label = nct4v3 VM Type
         Description = The VM type for nct4v3 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_NC64as_T4_v3
     
         [[[parameter nca100v4_machine_type]]]
-        Label = HPC VM Type
+        Label = nca100v4 VM Type
         Description = The VM type for nca100v4 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_NC96ads_A100_v4
     
         [[[parameter ndv2_machine_type]]]
-        Label = HPC VM Type
+        Label = ndv2 VM Type
         Description = The VM type for ndv2 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_ND40rs_v2
     
         [[[parameter ndv4_machine_type]]]
-        Label = HPC VM Type
+        Label = ndv4 VM Type
         Description = The VM type for ndv4 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_ND96asr_v4
     
         [[[parameter ndmv4_machine_type]]]
-        Label = HPC VM Type
+        Label = ndmv4 VM Type
         Description = The VM type for ndmv4 execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_ND96amsr_a100_v4
@@ -741,7 +743,7 @@ Order = 20
         [[[parameter configuration_slurm_accounting_password]]]
         Label = Slurm DBD Password
         Description = Password for Slurm DBD admin
-        DefaultValue = "AzureAdmin2022!"
+        DefaultValue = "db_password"
         ParameterType = Password
         Conditions.Excluded := configuration_slurm_accounting_enabled isnt true
         

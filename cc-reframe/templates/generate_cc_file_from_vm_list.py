@@ -75,11 +75,11 @@ def create_max_cores_params(vm_size,max_cores=384):
 def create_machine_type_params(p_name,vm_size):
     param_text = """
         [[[parameter {}_machine_type]]]
-        Label = HPC VM Type
+        Label = {} VM Type
         Description = The VM type for {} execute nodes
         ParameterType = Cloud.MachineType
         DefaultValue = {}
-""".format(p_name,p_name,vm_size)
+""".format(p_name,p_name,p_name,vm_size)
     print("Parameters for {}:\n{}".format(p_name,param_text))
 
     return(param_text)
