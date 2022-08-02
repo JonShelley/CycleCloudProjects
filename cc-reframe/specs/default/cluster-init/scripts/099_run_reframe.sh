@@ -8,13 +8,20 @@ mkdir -p $SCRATCH_DIR
 version=`/bin/bash ${REFRAME_DIR}/azure_nhc/utils/common.sh`
 export PATH=/opt/cycle/jetpack/bin:$PATH
 
-if [ "$version" == "centos-7" ]
+reframe_cfg="azure_ex.py"
+if [ "$version" == "almalinux-8" ]
+then
+    reframe_cfg="azure_almalinux_8.py"
+elif [ "$version" == "centos-7" ]
 then
     export PATH=/opt/rh/rh-python38/root/usr/bin:$PATH
+    reframe_cfg="azure_centos_7.py"
 elif [ "$version" == "centos-8" ]
 then
-    #Nothing yet
-    a="5"
+    reframe_cfg="azure_centos_8.py"
+elif [ "$version" == "ubuntu-20" ]
+then
+    reframe_cfg="azure_ubuntu_20.py"
 fi
 
 set -x
@@ -23,12 +30,13 @@ function run_reframe {
     echo "Hello run_reframe()"
     # Setup environment
     cd ${REFRAME_DIR}
+    . reframe_venv/bin/activate
     . share/completions/reframe.bash
 
     # Run reframe tests
     . /etc/profile.d/modules.sh
     mkdir -p ${SCRATCH_DIR}/reports
-    ./bin/reframe -C azure_nhc/config/azure_ex.py --force-local --report-file ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-startup.json -c azure_nhc/run_level_2 -R -s ${SCRATCH_DIR}/stage/${HOSTNAME} -o ${SCRATCH_DIR}/output/${HOSTNAME} -r --performance-report
+    ./bin/reframe -C azure_nhc/config/${reframe_cfg} --force-local --report-file ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-startup.json -c azure_nhc/run_level_2 -R -s ${SCRATCH_DIR}/stage/${HOSTNAME} -o ${SCRATCH_DIR}/output/${HOSTNAME} -r --performance-report
 
 }
 

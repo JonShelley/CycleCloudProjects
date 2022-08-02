@@ -3,7 +3,11 @@
 # Determine the OS version
 . /usr/lib/os-release
 
-if [ "$ID" == "ubuntu" ]
+if [ "$ID" == "almalinux" ]
+then
+    majVer=(${VERSION_ID//./ })
+    echo "$ID-${majVer[0]}"
+elif [ "$ID" == "ubuntu" ]
 then
     echo "ID: $ID"
 elif [ "$ID" == "centos" ]

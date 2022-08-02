@@ -4,7 +4,10 @@ set -ex
 # Determine the OS version
 version=`/bin/bash ${CYCLECLOUD_SPEC_PATH}/files/common.sh`
 
-if [ "$version" == "centos-7" ]
+if [ "$version" == "almalinux-8" ]
+then
+    yum install -y python38
+elif [ "$version" == "centos-7" ]
 then
     yum install -y centos-release-scl-rh
     yum install -y rh-python38-python
@@ -17,7 +20,3 @@ fi
 
 yum install -y git jq
 
-# Install reframe
-cd /shared/azure_nhc/reframe
-
-./bootstrap.sh
