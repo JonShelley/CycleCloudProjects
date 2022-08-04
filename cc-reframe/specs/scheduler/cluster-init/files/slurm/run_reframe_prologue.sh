@@ -33,7 +33,7 @@ function run_reframe {
     # Run reframe tests
     . /etc/profile.d/modules.sh
     mkdir -p ${REFRAME_DIR}/reports
-    ./bin/reframe -C azure_nhc/config/${reframe_cfg} --report-file ${SCRATCH}/reports/${HOSTNAME}-cc-slurm-prologue.json -c ${REFRAME_DIR}/azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage/${HOSTNAME} -o ${SCRATCH_DIR}/output/${HOSTNAME} -R -r --performance-report --force-local
+    ./bin/reframe -C azure_nhc/config/${reframe_cfg} --report-file ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-slurm-prologue.json -c ${REFRAME_DIR}/azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage/${HOSTNAME} -o ${SCRATCH_DIR}/output/${HOSTNAME} -R -r --performance-report --force-local
 
 }
 
