@@ -87,11 +87,11 @@ def create_machine_type_params(p_name,vm_size):
 def create_image_name_params(p_name,img_name="cycle.image.centos7"):
     param_text="""
         [[[parameter {}_image_name]]]
-        Label = HPC OS
+        Label = {} OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = {}
-""".format(p_name,img_name)
+""".format(p_name,p_name,img_name)
 
     print("Parameters for {}:\n{}".format(p_name,param_text))
 
