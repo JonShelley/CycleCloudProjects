@@ -1,11 +1,16 @@
 #!/bin/bash
 
+set -ex
+
 #### 
-# Requirements: Ubuntu 18.04
+# Requirements: Ubuntu 20.04
 ####
 
+MNT_FILES=/mnt/cluster-init/slurm/ndv4/files
+
 # Create base directory
-chmod -R 1777 /mnt
+#chmod -R 1777 /mnt
+sudo apt update
 mkdir -m 1777 -p /mnt/resource
 cd /mnt/resource
 
@@ -13,10 +18,8 @@ cd /mnt/resource
 # Ref: https://github.com/NVIDIA/enroot/blob/master/doc/installation.md
 # For the latest version, refer to https://github.com/NVIDIA/enroot/blob/master/doc/installation.md#standard-flavor
 # Debian-based distributions
-arch=$(dpkg --print-architecture)
-curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v3.4.0/enroot_3.4.0-1_${arch}.deb
-curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v3.4.0/enroot+caps_3.4.0-1_${arch}.deb # optional
-sudo apt install -y ./*.deb
+cd ${CYCLECLOUD_SPEC_PATH}/files
+sudo apt install -y ./enroot*.deb
 enroot version
 
 mkdir -m 1777 -p /mnt/resource/enroot/tmp
@@ -51,17 +54,14 @@ ln -s /usr/share/enroot/bash_completion /etc/bash_completion.d/enroot.bash_compl
 
 
 # Install Pyxis
-if [ ! -d "/mnt/resource/pyxis" ]; then
-    cd /mnt/resource
-    git clone https://github.com/NVIDIA/pyxis.git
-    cd pyxis
-    git checkout v0.13.0
-    #git checkout v0.9.1
-    sed -i "s/, libslurm-dev//g" debian/control
-    make orig
-    make deb
-fi
-sudo dpkg -i /mnt/resource/nvslurm-plugin-pyxis_*_amd64.deb
+cd $MNT_FILES
+tar xzf pyxis-v0.13.0.tar.gz 
+cd pyxis-0.13.0
+sed -i "s/, libslurm-dev//g" debian/control
+make orig
+make deb
+
+sudo dpkg -i ../nvslurm-plugin-pyxis_*_amd64.deb
 sudo mkdir -p /etc/slurm/plugstack.conf.d
 echo "include /etc/slurm/plugstack.conf.d/*.conf" | sudo tee -a /etc/slurm/plugstack.conf
 sudo ln -s /usr/share/pyxis/pyxis.conf /etc/slurm/plugstack.conf.d/pyxis.conf
@@ -93,29 +93,19 @@ sudo chmod 755 /usr/share/pyxis/entrypoint
 cd -
 
 # Install PMIx
-cd ~/
-mkdir -p /opt/pmix/v4
+mkdir -p /opt/pmix/v3
 apt install -y libevent-dev
-mkdir -p pmix/build/v4 pmix/install/v4
-cd pmix
-git clone https://github.com/openpmix/openpmix.git source
-cd source/
-git branch -a
-git checkout v4.2
-git pull
+cd $MNT_FILES
+tar xzf openpmix-v4.2.0.tar.gz
+cd openpmix-4.2.0
 ./autogen.sh
-cd ../build/v4/
-../../source/configure --prefix=/opt/pmix/v4
+./configure --prefix=/opt/pmix/v3
 make -j install >/dev/null
-cd ../../install/v4/
 
 # Get the nephele project
-if [ ! -d /mnt/resource/nephele ]; then
-   cd /mnt/resource
-   git clone https://github.com/NVIDIA/nephele.git
-   cd nephele
-   git checkout ubuntu-20.04
-fi
+cd $MNT_FILES
+unzip nephele-ub20.04.zip
+cd nephele-ubuntu-20.04
 
 # Configure SLURM
 mkdir -m 1777 -p /mnt/resource/slurm
@@ -125,24 +115,11 @@ if [ ! -d "/etc/sysconfig" ]; then
     mkdir -p /etc/sysconfig
 fi
 
-echo "Sysconfig section pre update"
-cat /etc/sysconfig/slurmd
-
-cat << END >> /etc/sysconfig/slurmd
-
-PMIX_MCA_ptl=^usock
-PMIX_MCA_psec=none
-PMIX_SYSTEM_TMPDIR=/var/empty
-PMIX_MCA_gds=hash
-HWLOC_COMPONENTS=-opencl
-END
-
-echo "Sysconfig section post update"
-cat /etc/sysconfig/slurmd
-
-# Update the config file to use prologues and epilogs.
+# Update the config file 
 sed -i "s/SchedulerParameters=max_switch_wait=24:00:00/SchedulerParameters=max_switch_wait=24:00:00,nohold_on_prolog_fail,Ignore_NUMA,enable_user_top/g" /etc/slurm/slurm.conf
 sed -i "s/MpiDefault=none//g" /etc/slurm/slurm.conf
+
+# Append to the config file
 cat << END >> /etc/slurm/slurm.conf
 ### Updates for NGC integration
 # MPI
@@ -162,9 +139,9 @@ END
 
 # Setup the additional scripts for Slurm
 if [ ! -d /sched/prolog.d ]; then
-    cp /mnt/resource/nephele/ansible/roles/slurm/templates/usr/lib/slurm/* /sched/.
-    cp -r /mnt/resource/nephele/ansible/roles/slurm/templates/etc/slurm/prolog.d /sched/.
-    cp -r /mnt/resource/nephele/ansible/roles/slurm/templates/etc/slurm/epilog.d /sched/.
+    cp $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/templates/usr/lib/slurm/* /sched/.
+    cp -r $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/templates/etc/slurm/prolog.d /sched/.
+    cp -r $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/templates/etc/slurm/epilog.d /sched/.
 fi
 
 # Setup links for the prolog and epilog directories
@@ -172,7 +149,7 @@ ln -s /sched/prolog.d /etc/slurm/prolog.d
 ln -s /sched/epilog.d /etc/slurm/epilog.d
 
 # Copy over additional files
-cp -r /mnt/resource/nephele/ansible/roles/slurm/files/etc/slurm/cgroup_allowed_devices_file.conf /etc/slurm/cgroup_allowed_devices_file.conf 
+cp -r $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/files/etc/slurm/cgroup_allowed_devices_file.conf /etc/slurm/cgroup_allowed_devices_file.conf 
 
 
 # Restart Slurm
