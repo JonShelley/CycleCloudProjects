@@ -94,20 +94,20 @@ cd -
 
 # Install PMIx
 cd ~/
-mkdir -p /opt/pmix/v4
+mkdir -p /opt/pmix/v3
 apt install -y libevent-dev
-mkdir -p pmix/build/v4 pmix/install/v4
+mkdir -p pmix/build/v3 pmix/install/v3
 cd pmix
 git clone https://github.com/openpmix/openpmix.git source
 cd source/
 git branch -a
-git checkout v4.2
+git checkout v3.1
 git pull
 ./autogen.sh
-cd ../build/v4/
-../../source/configure --prefix=/opt/pmix/v4
+cd ../build/v3/
+../../source/configure --prefix=/opt/pmix/v3
 make -j install >/dev/null
-cd ../../install/v4/
+cd ../../install/v3/
 
 # Get the nephele project
 if [ ! -d /mnt/resource/nephele ]; then

@@ -25,6 +25,8 @@ Autoscale = $Autoscale
         slurm.accounting.user = $configuration_slurm_accounting_user
         slurm.accounting.password = $configuration_slurm_accounting_password
         slurm.additional.config = $additional_slurm_config
+        slurm.node_prefix = ${ifThenElse(NodeNamePrefix=="Cluster Prefix", StrJoin("-", ClusterName, ""), NodeNamePrefix)}
+        slurm.use_nodename_as_hostname = $NodeNameIsHostname
 
         # For fast spin-up after Deallocate, force an immediate re-converge on boot
         cyclecloud.converge_on_boot = true
