@@ -3,7 +3,7 @@
 set -ex
 
 #### 
-# Requirements: Ubuntu 18.04
+# Requirements: Ubuntu 20.04
 ####
 
 MNT_FILES=/mnt/cluster-init/slurm/ndv4/files
@@ -45,18 +45,18 @@ cp /usr/share/enroot/hooks.d/50*.sh /etc/enroot/hooks.d/.
 # Copy over the environ.d env file
 cat << END >> /etc/enroot/environ.d/50-visible-devices.env
 NVIDIA_VISIBLE_DEVICES=all
-NVIDIA_DRIVER_CAPABILITIES=all
+NVIDIA_DRIVER_CAPABILITIES=compute,utility
 MELLANOX_VISIBLE_DEVICES=all
 END
 
 # link the bash completion file
-ln -s /usr/share/enroot/bash_completion /etc/bash_completion.d/enroot.bash_completion
+ln -sf /usr/share/enroot/bash_completion /etc/bash_completion.d/enroot.bash_completion
 
 
 # Install Pyxis
 cd $MNT_FILES
-tar xzf pyxis-v0.11.1.tar.gz 
-cd pyxis-0.11.1
+tar xzf pyxis-v0.13.0.tar.gz 
+cd pyxis-0.13.0
 sed -i "s/, libslurm-dev//g" debian/control
 make orig
 make deb
@@ -64,7 +64,7 @@ make deb
 sudo dpkg -i ../nvslurm-plugin-pyxis_*_amd64.deb
 sudo mkdir -p /etc/slurm/plugstack.conf.d
 echo "include /etc/slurm/plugstack.conf.d/*.conf" | sudo tee -a /etc/slurm/plugstack.conf
-sudo ln -s /usr/share/pyxis/pyxis.conf /etc/slurm/plugstack.conf.d/pyxis.conf
+sudo ln -sf /usr/share/pyxis/pyxis.conf /etc/slurm/plugstack.conf.d/pyxis.conf
 
 # pyxis fstab
 echo "/usr/share/pyxis/entrypoint /etc/rc.local none x-create=file,bind,ro,nosuid,nodev,noexec,nofail,silent" | sudo tee /etc/enroot/mounts.d/90-pyxis.fstab
@@ -95,6 +95,7 @@ cd -
 # Install PMIx
 mkdir -p /opt/pmix/v3
 apt install -y libevent-dev
+#apt-get install -y hwloc
 cd $MNT_FILES
 tar xzf openpmix-v3.1.6.tar.gz
 cd openpmix-3.1.6
@@ -102,10 +103,28 @@ cd openpmix-3.1.6
 ./configure --prefix=/opt/pmix/v3
 make -j install >/dev/null
 
+
+#cd ~/
+#mkdir -p /opt/pmix/v4
+#apt install -y libevent-dev
+#mkdir -p pmix/build/v4 pmix/install/v4
+#cd pmix
+#git clone https://github.com/openpmix/openpmix.git source
+#cd source/
+#git branch -a
+#git checkout v4.2
+#git pull
+#./autogen.pl
+#cd ../build/v4/
+#../../source/configure --prefix=/opt/pmix/v4
+#make -j install >/dev/null
+#cd ../../install/v4/
+
+
 # Get the nephele project
 cd $MNT_FILES
-unzip nephele-ub18.04.zip
-cd nephele-ubuntu-18.04
+unzip nephele-ub20.04.zip
+cd nephele-ubuntu-20.04
 
 # Configure SLURM
 mkdir -m 1777 -p /mnt/resource/slurm
@@ -139,17 +158,17 @@ END
 
 # Setup the additional scripts for Slurm
 if [ ! -d /sched/prolog.d ]; then
-    cp $MNT_FILES/nephele-ubuntu-18.04/ansible/roles/slurm/templates/usr/lib/slurm/* /sched/.
-    cp -r $MNT_FILES/nephele-ubuntu-18.04/ansible/roles/slurm/templates/etc/slurm/prolog.d /sched/.
-    cp -r $MNT_FILES/nephele-ubuntu-18.04/ansible/roles/slurm/templates/etc/slurm/epilog.d /sched/.
+    cp $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/templates/usr/lib/slurm/* /sched/.
+    cp -r $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/templates/etc/slurm/prolog.d /sched/.
+    cp -r $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/templates/etc/slurm/epilog.d /sched/.
 fi
 
 # Setup links for the prolog and epilog directories
-ln -s /sched/prolog.d /etc/slurm/prolog.d
-ln -s /sched/epilog.d /etc/slurm/epilog.d
+ln -sf /sched/prolog.d /etc/slurm/prolog.d
+ln -sf /sched/epilog.d /etc/slurm/epilog.d
 
 # Copy over additional files
-cp -r $MNT_FILES/nephele-ubuntu-18.04/ansible/roles/slurm/files/etc/slurm/cgroup_allowed_devices_file.conf /etc/slurm/cgroup_allowed_devices_file.conf 
+cp -r $MNT_FILES/nephele-ubuntu-20.04/ansible/roles/slurm/files/etc/slurm/cgroup_allowed_devices_file.conf /etc/slurm/cgroup_allowed_devices_file.conf 
 
 
 # Restart Slurm
