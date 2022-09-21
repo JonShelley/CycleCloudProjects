@@ -6,7 +6,7 @@ set -ex
 # Requirements: Ubuntu 20.04
 ####
 
-MNT_FILES=/mnt/cluster-init/slurm/ndv4/files
+MNT_FILES=/mnt/cluster-init/slurm/default/files
 
 # Create base directory
 #chmod -R 1777 /mnt
