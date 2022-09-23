@@ -6,7 +6,9 @@ set -ex
 # Requirements: Ubuntu 20.04
 ####
 
-MNT_FILES=/mnt/cluster-init/slurm/default/files
+MNT_FILES=${CYCLECLOUD_SPEC_PATH}/files
+
+sh ../../../../download_dependancies.sh #should run download_dependancies.sh and download the installers in cyclecloud default files directory
 
 # Create base directory
 #chmod -R 1777 /mnt
