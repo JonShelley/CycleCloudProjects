@@ -8,8 +8,6 @@ set -ex
 
 MNT_FILES=${CYCLECLOUD_SPEC_PATH}/files
 
-sh ../../../../download_dependancies.sh #should run download_dependancies.sh and download the installers in cyclecloud default files directory
-
 # Create base directory
 #chmod -R 1777 /mnt
 sudo apt update
