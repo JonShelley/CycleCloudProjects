@@ -2,7 +2,7 @@
 
 # Download the following packages and place them in ndv4/cluster-init/files
 
-BASE_DIR=specs/default/cluster-init/files
+BASE_DIR={CYCLECLOUD_SPEC_PATH}/files
 mkdir -p $BASE_DIR
 cd $BASE_DIR
 
@@ -28,7 +28,6 @@ wget https://github.com/Syllo/nvtop/archive/refs/tags/2.0.3.tar.gz -O nvtop-2.0.
 
 # Download PMIX
 
-#wget https://github.com/openpmix/openpmix/archive/refs/tags/v4.2.0.tar.gz -O openpmix-v4.2.0.tar.gz
 wget https://github.com/openpmix/openpmix/archive/refs/tags/v3.1.6.tar.gz -O openpmix-v3.1.6.tar.gz
  
 
