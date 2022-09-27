@@ -27,7 +27,7 @@ Initialize Cycle Cloud
 ```shell
 cyclecloud initialize
 ```
-To use slurm 2.6.5, perform the following steps. _Note: This is a temporary step
+To use slurm 2.6.5, perform the following steps. _Note_: This is a temporary step
  ```shell
  vi Slurm-2.6.5.txt
  ```
@@ -41,14 +41,14 @@ AutoUpgrade = false
 Name= "slurm"
 ```
 ```shell
-sudo cp slurm-2.6.5.txt /opt/cycle_server/config/data/
+sudo cp Slurm-2.6.5.txt /opt/cycle_server/config/data/
 ```
   
 Before running the below code block change \<azure-storage\> to the correct locker name. To see the available lockers run
 ```shell
 cyclecloud locker list 
 ```
-    
+Run the following block of commands to upload the NGC project files to CC azure storage. 
 ```shell
 sudo yum install -y git
 cd ~/
