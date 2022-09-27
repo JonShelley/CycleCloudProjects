@@ -73,11 +73,13 @@ Use the following link to learn more about creating a cluster (https://docs.micr
 _Note: Only tested with Ubuntu-HPC 20.04 marketplace image_
  
  Tips: 
- - In the _Schedulers_ section, select cc-slurm-ngc
+ - When creating a new cluster, in the _Schedulers_ section, select cc-slurm-ngc
  - In the "Required Settings" tab
    - Uncheck "autoscale" if you don't want VMs to automatically shut off when nodes sit idle 
   - Update value from Max HPC Cores to the desired # of VMs * # of cores/VM
  - In the "Advanced Settings" tab
+   - Uncheck Job Accountinh if there is no slurmdb set up.
+   - If you select Job Accounting, you will need Slurm DBD Url and user. 
    - Set the scheduler OS to use a custom image
      - microsoft-dsvm:ubuntu-hpc:2004:latest
    - Set the last HPC OS to use a custom image
