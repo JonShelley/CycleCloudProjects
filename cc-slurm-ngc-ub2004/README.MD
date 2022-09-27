@@ -52,7 +52,7 @@ Run the following block of commands to upload the NGC project files to CC azure 
 ```shell
 sudo yum install -y git
 cd ~/
-git submodule add https://github.com/sdoomra/CycleCloudProjects.git
+git clone https://github.com/sdoomra/CycleCloudProjects.git
 cd CycleCloudProjects/cc-slurm-ngc-ub2004
 ./download_dependancies.sh #downloads dependencies into the default/files folder
 cyclecloud project upload "<azure-storage>"  # Change this to your locker name
