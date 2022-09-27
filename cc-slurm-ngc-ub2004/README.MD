@@ -94,7 +94,7 @@ _Note: Only tested with Ubuntu-HPC 20.04 marketplace image_
 sudo chmod 1777 /shared
 mkdir -p /shared/data
 cd /shared/data
-git clone https://github.com/JonShelley/azure
+git clone https://github.com/sdoomra/azure.git
 ```
 
 At this point you are ready to deploy the VMs. Click on the Nodes tab and select the hpc template and you should see the bottom table fill up with VM names. Highlight the number that you would like to deploy, click on Actions -> Start
@@ -107,6 +107,6 @@ sudo /shared/data/azure/benchmarking/NDv4/cc-slurm-ngc/util_scripts/configure_gp
 ```
     
 At this point the system should be ready to run some quick tests to verify that the system is working as expected
- - [HPL](https://github.com/JonShelley/azure/tree/master/benchmarking/NDv4/cc-slurm-ngc/hpl)
- - [NCCL - All Reduce](https://github.com/JonShelley/azure/tree/master/benchmarking/NDv4/cc-slurm-ngc/nccl)
- - [Utility scripts](https://github.com/JonShelley/azure/tree/master/benchmarking/NDv4/cc-slurm-ngc/util_scripts)
+ - [HPL](https://github.com/sdoomra/azure/tree/master/benchmarking/NDv4/cc-slurm-ngc/hpl)
+ - [NCCL - All Reduce](https://github.com/sdoomra/azure/tree/master/benchmarking/NDv4/cc-slurm-ngc/nccl)
+ - [Utility scripts](https://github.com/sdoomra/azure/tree/master/benchmarking/NDv4/cc-slurm-ngc/util_scripts)
