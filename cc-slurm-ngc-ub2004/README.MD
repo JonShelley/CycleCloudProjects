@@ -93,8 +93,8 @@ _Note: Only tested with Ubuntu-HPC 20.04 marketplace image_
     
  Once the Scheduler has been provisioned, ssh into the scheduler and follow the instructions below
 ```shell
-sudo chmod 1777 /shared
-mkdir -p /shared/data
+sudo mkdir -p /shared/data
+sudo chmod 1777 /shared/data
 cd /shared/data
 git clone https://github.com/sdoomra/azure.git
 ```
