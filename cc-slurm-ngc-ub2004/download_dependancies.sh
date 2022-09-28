@@ -2,7 +2,7 @@
 
 # Download the following packages and place them in ndv4/cluster-init/files
 
-BASE_DIR={CYCLECLOUD_SPEC_PATH}/files
+BASE_DIR=specs/default/cluster-init/files
 mkdir -p $BASE_DIR
 cd $BASE_DIR
 
