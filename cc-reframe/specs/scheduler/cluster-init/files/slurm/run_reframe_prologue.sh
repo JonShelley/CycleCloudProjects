@@ -12,6 +12,7 @@ then
 elif [ "$version" == "centos-7" ]
 then
     export PATH=/opt/rh/rh-python38/root/usr/bin:$PATH
+    ln -s /opt/rh/rh-python38/root/usr/bin/python3.8 /usr/bin/python3
     reframe_cfg="azure_centos_7.py"
 elif [ "$version" == "centos-8" ]
 then
@@ -33,8 +34,8 @@ function run_reframe {
     # Run reframe tests
     . /etc/profile.d/modules.sh
     mkdir -p ${REFRAME_DIR}/reports
-    ./bin/reframe -C azure_nhc/config/${reframe_cfg} --report-file ${SCRATCH}/reports/${HOSTNAME}-cc-slurm-prologue.json -c ${REFRAME_DIR}/azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage/${HOSTNAME} -o ${SCRATCH_DIR}/output/${HOSTNAME} -R -r --performance-report --force-local
-
+    ./bin/reframe -C azure_nhc/config/${reframe_cfg} --report-file ${SCRATCH_DIR}/reports/${HOSTNAME}-cc-slurm-prologue.json -c ${REFRAME_DIR}/azure_nhc/run_level_1 -s ${SCRATCH_DIR}/stage/${HOSTNAME} -o ${SCRATCH_DIR}/output/${HOSTNAME} -R -r --performance-report --force-local
+    echo "status: $?"
 }
 
 function check_reframe {
@@ -49,7 +50,7 @@ function check_reframe {
     /opt/cycle/jetpack/bin/jetpack log "$HOSTNAME:$vmId:$status"
 
     # Place the node in a drained state
-    scontrol update nodename=$HOSTNAME state=DRAIN Reason="$status"
+    #scontrol update nodename=$HOSTNAME state=DRAIN Reason="$status"
 
     # If possible, trigger IcM ticket and get it out of rotation
 }
