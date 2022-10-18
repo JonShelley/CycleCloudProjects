@@ -813,64 +813,64 @@ Order = 20
 
     
         [[[parameter hb_image_name]]]
-        Label = HPC OS
+        Label = HB OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = OpenLogic:CentOS-HPC:7_9-gen2:latest
     
         [[[parameter hbv2_image_name]]]
-        Label = HPC OS
+        Label = HBV2 OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = OpenLogic:CentOS-HPC:7_9-gen2:latest
     
         [[[parameter hbv3_image_name]]]
-        Label = HPC OS
+        Label = HBV3 OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = OpenLogic:CentOS-HPC:7_9-gen2:latest
     
         [[[parameter hc_image_name]]]
-        Label = HPC OS
+        Label = HC OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = OpenLogic:CentOS-HPC:7_9-gen2:latest
     
         [[[parameter ncv3_image_name]]]
-        Label = HPC OS
+        Label = NCv3 OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = microsoft-dsvm:ubuntu-hpc:1804:latest
     
         [[[parameter nct4v3_image_name]]]
-        Label = HPC OS
+        Label = NCT4v3 OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = microsoft-dsvm:ubuntu-hpc:1804:latest
     
         [[[parameter nca100v4_image_name]]]
-        Label = HPC OS
+        Label = NCA100v4 OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = microsoft-dsvm:ubuntu-hpc:1804:latest
     
         [[[parameter ndv2_image_name]]]
-        Label = HPC OS
+        Label = NDv2 OS
         ParameterType = Cloud.Image
         Config.OS = linux
         DefaultValue = microsoft-dsvm:ubuntu-hpc:1804:latest
     
         [[[parameter ndv4_image_name]]]
-        Label = HPC OS
+        Label = NDv4 OS
         ParameterType = Cloud.Image
         Config.OS = linux
-        DefaultValue = microsoft-dsvm:ubuntu-hpc:1804:latest
+        DefaultValue = microsoft-dsvm:ubuntu-hpc:2004:latest
     
         [[[parameter ndmv4_image_name]]]
-        Label = HPC OS
+        Label = NDmv4 OS
         ParameterType = Cloud.Image
         Config.OS = linux
-        DefaultValue = microsoft-dsvm:ubuntu-hpc:1804:latest
+        DefaultValue = microsoft-dsvm:ubuntu-hpc:2004:latest
 
 
         [[[parameter SchedulerClusterInitSpecs]]]
