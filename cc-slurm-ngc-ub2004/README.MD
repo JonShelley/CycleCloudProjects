@@ -8,16 +8,17 @@ _Note: Please follow [Cycle Cloud Quickstart guide](https://docs.microsoft.com/e
 
 __Recommendations:__
 - Create a new resource group (i.e cc-manager) and then select your newly created resource group and create your cyclecloud server.
-- Select Azure CycleCloud 8.2(or higher) and click create
+- Select Azure CycleCloud 8.2(or higher) and click create.
     - Fill out the requested information and deploy your CycleCloud server.
-- Server size: D4s_v4 (Recommended)
+- Server size: D4s_v4 (Recommended).
 - Create a uniquely named storage account (i.e. cc-storage-name) in your newly created resource group.
 
 Once deployed:
  - Go to the newly created Cycle Cloud server and record the ip address. 
- - Login to the Cycle Cloud server in your Web Browser and do the initial setup of your Cycle Cloud server
-    This step requires adding information about Tenant ID, App ID and App secret. Here is a presentation that shows how to get that information on Azure. [GTC_CC_SLURM_NGC](https://microsoft.sharepoint.com/teams/HPCAIBenchmarking/_layouts/15/stream.aspx?id=%2Fteams%2FHPCAIBenchmarking%2FShared%20Documents%2FConferences%2FGTC%2DCC%2DSlurm%2DNGC%2Emp4)
-    _Note:_ There could be an expiration secret on the App secret. The set up may not work as expected once that App secret expires.  
+ - Login to the Cycle Cloud server in your Web Browser and do the initial setup of your Cycle Cloud server. 
+    - This step requires adding information about Tenant ID, App ID and App secret. 
+    - Here is a presentation that shows how to get that information on Azure. [GTC_CC_SLURM_NGC](https://microsoft.sharepoint.com/teams/HPCAIBenchmarking/_layouts/15/stream.aspx?id=%2Fteams%2FHPCAIBenchmarking%2FShared%20Documents%2FConferences%2FGTC%2DCC%2DSlurm%2DNGC%2Emp4)
+    - _Note:_ There could be an expiration secret on the App secret. The set up may not work as expected once that App secret expires.  
  
  
 Next, ssh into your cyclecloud server (i.e. ssh azureuser@<cc-srv-ip>) and follow the steps below:
