@@ -12,7 +12,7 @@ __Recommendations:__
     - Fill out the requested information and deploy your CycleCloud server.
 - Server size: D4s_v4 (Recommended).
 - Create a uniquely named storage account (i.e. cc-storage-name) in your newly created resource group.
-- Create a Azure Virtual Private Network [Azure VPN](https://microsoft-my.sharepoint.com/:w:/p/aimeegarcia/EdDJ0PxKehBMjKfFYcXEYDcBWAMRBNg39xYLEkiVVo9IhQ?isSPOFile=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjA5MDQwMDcxMiIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D) 
+- Create a [Azure Virtual Private Network] (https://microsoft-my.sharepoint.com/:w:/p/aimeegarcia/EdDJ0PxKehBMjKfFYcXEYDcBWAMRBNg39xYLEkiVVo9IhQ?isSPOFile=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjA5MDQwMDcxMiIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D) in your newly created resource group.  
 
 Once deployed:
  - Go to the newly created Cycle Cloud server and record the ip address. 
