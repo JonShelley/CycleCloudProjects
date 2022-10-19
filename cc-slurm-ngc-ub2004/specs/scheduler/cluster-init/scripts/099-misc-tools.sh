@@ -18,3 +18,6 @@ apt install -y lbzip2
 # Install gdown useful for getting data from google drive
 sudo apt-get -y install python3-pip
 sudo pip3 install gdown
+
+# install clustershell
+sudo apt install clustershell
