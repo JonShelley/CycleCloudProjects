@@ -110,6 +110,11 @@ First we need to configure the GPUs to get the best performance. To do this run 
 ```shell
 sudo /shared/data/azure/benchmarking/NDv4/cc-slurm-ngc/util_scripts/configure_gpus.sh
 ```
+
+If you'd like to use docker containers on compute nodes, the below command helps in setting up initial docker environment and makes sure that docker is installed correctly on the compute nodes.  
+```shell
+clush -w <compute_nodes> sudo docker run --runtime=nvidia --rm nvidia/cuda:11.2.0-runtime-ubuntu20.04 nvidia-smi
+```
     
 At this point the system should be ready to run some quick tests to verify that the system is working as expected
  - [HPL](https://github.com/sdoomra/azure/tree/master/benchmarking/NDv4/cc-slurm-ngc/hpl)
