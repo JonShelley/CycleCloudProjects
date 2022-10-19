@@ -76,6 +76,7 @@ _Note: Only tested with Ubuntu-HPC 20.04 marketplace image_
  
  Tips: 
  - When creating a new cluster, in the _Schedulers_ section, select cc-slurm-ngc
+ - Make sure you enter the name of the cluster in **small letters**. Camel-case and Capital letters in the cluster name do not work as expected (Known issue) 
  - In the "Required Settings" tab
    - Uncheck "autoscale" if you don't want VMs to automatically shut off when nodes sit idle 
   - Update value from Max HPC Cores to the desired # of VMs * # of cores/VM
@@ -105,7 +106,7 @@ At this point you are ready to deploy the VMs. Click on the Nodes tab and select
     
 Once the VMs are deployed you will need to ssh in the scheduler and then you can explore the options below.
 
-First we need to configure the GPUs to get the best performance. To do this run the following on every compute VM using pdsh
+First we need to configure the GPUs to get the best performance. To do this run the following on every compute VM using clush command
 ```shell
 sudo /shared/data/azure/benchmarking/NDv4/cc-slurm-ngc/util_scripts/configure_gpus.sh
 ```
