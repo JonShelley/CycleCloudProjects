@@ -108,7 +108,7 @@ Once the VMs are deployed you will need to ssh in the scheduler and then you can
 
 First we need to configure the GPUs to get the best performance. To do this run the following on every compute VM using clush command
 ```shell
-sudo /shared/data/azure/benchmarking/NDv4/cc-slurm-ngc/util_scripts/configure_gpus.sh
+clush -w <compute_nodes> sudo /shared/data/azure/benchmarking/NDv4/cc-slurm-ngc/util_scripts/configure_gpus.sh
 ```
 
 If you'd like to use docker containers on compute nodes, the below command helps in setting up initial docker environment and makes sure that docker is installed correctly on the compute nodes.  
