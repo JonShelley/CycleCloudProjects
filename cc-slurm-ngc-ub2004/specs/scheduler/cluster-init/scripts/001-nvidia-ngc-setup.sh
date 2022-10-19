@@ -14,8 +14,8 @@ cd /mnt/resource
 # For the latest version, refer to https://github.com/NVIDIA/enroot/blob/master/doc/installation.md#standard-flavor
 # Debian-based distributions
 arch=$(dpkg --print-architecture)
-curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v3.3.0/enroot_3.3.0-1_${arch}.deb
-curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v3.3.0/enroot+caps_3.3.0-1_${arch}.deb # optional
+curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v3.4.0/enroot_3.4.0-1_${arch}.deb
+curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v3.4.0/enroot+caps_3.4.0-1_${arch}.deb # optional
 sudo apt install -y ./*.deb
 enroot version
 
@@ -55,7 +55,7 @@ if [ ! -d "/mnt/resource/pyxis" ]; then
     cd /mnt/resource
     git clone https://github.com/NVIDIA/pyxis.git
     cd pyxis
-    git checkout v0.11.0
+    git checkout v0.13.0
     #git checkout v0.9.1
     sed -i "s/, libslurm-dev//g" debian/control
     make orig
@@ -114,7 +114,7 @@ if [ ! -d /mnt/resource/nephele ]; then
    cd /mnt/resource
    git clone https://github.com/NVIDIA/nephele.git
    cd nephele
-   git checkout ubuntu-18.04
+   git checkout ubuntu-20.04
 fi
 
 # Configure SLURM

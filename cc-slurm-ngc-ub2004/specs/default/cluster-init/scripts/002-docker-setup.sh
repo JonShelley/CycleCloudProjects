@@ -49,9 +49,9 @@ set -e
 echo "\n---------------- Install NVtop ----------------"
 sudo apt install -y cmake libncurses5-dev libncursesw5-dev git
 cd /tmp
-cp ${CYCLECLOUD_SPEC_PATH}/files/nvtop-1.2.2.tar.gz .
-tar xzf nvtop-1.2.2.tar.gz
-cd nvtop-1.2.2
+cp ${CYCLECLOUD_SPEC_PATH}/files/nvtop-2.0.3.tar.gz .
+tar xzf nvtop-2.0.3.tar.gz
+cd nvtop-2.0.3
 cmake .
 make
 sudo make install
